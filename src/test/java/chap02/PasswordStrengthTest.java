@@ -38,4 +38,28 @@ class PasswordStrengthTest {
         assertStrength("aa@#aksaa", PasswordStrength.NORMAL);
     }
 
+    @Test
+    @DisplayName("null인 경우")
+    public void nullInput_Then_Invalid() {
+        assertStrength(null, PasswordStrength.INVALID);
+    }
+
+    @Test
+    @DisplayName("빈값인 경우")
+    public void emptyInput_Then_Invalid() {
+        assertStrength("", PasswordStrength.INVALID);
+    }
+
+    @Test
+    @DisplayName("대문자를 포함하지 않고 조건 충족")
+    public void meetsOtherCriteria_except_for_Uppercase_Then_Normal() {
+        assertStrength("asss123#@2", PasswordStrength.NORMAL);
+    }
+
+    @Test
+    @DisplayName("길이가 8글자 이상인 조건만 충족")
+    public void meetsOnlyLengthCriteria_Then_Weak() {
+        assertStrength("abcdefghi", PasswordStrength.WEAK);
+    }
+
 }

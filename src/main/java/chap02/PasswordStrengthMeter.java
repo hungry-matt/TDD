@@ -4,17 +4,18 @@ public class PasswordStrengthMeter {
 
     public PasswordStrength meter(String password) {
 
-        //8글자 미만 체크
-        if (password.length() <= 8) {
-            return PasswordStrength.NORMAL;
-        }
-
-        //숫자 포함 유무 체크
+        boolean lengthEnough = password.length() >= 8;
+        boolean containsUpperCase = meetsContainingUppercaseCriteria(password);
         boolean containsNum = meetsContainingNumberCriteria(password);
 
-        if (!containsNum) {
-            return PasswordStrength.NORMAL;
-        }
+        if (password == null || password.isEmpty()) return PasswordStrength.INVALID;
+
+        //길이가 8글자 이상인 조건만 충족
+        if (lengthEnough && !containsUpperCase && !containsNum) return PasswordStrength.WEAK;
+
+        if (!lengthEnough) return PasswordStrength.NORMAL;
+        if (!containsUpperCase) return PasswordStrength.NORMAL;
+        if (!containsNum) return PasswordStrength.NORMAL;
 
         return PasswordStrength.STRONG;
     }
@@ -23,6 +24,17 @@ public class PasswordStrengthMeter {
 
         for (char c : password.toCharArray()) {
             if (c >= '0' && c <= '9') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean meetsContainingUppercaseCriteria(String password) {
+
+        for (char c: password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
                 return true;
             }
         }
