@@ -22,9 +22,8 @@ public class PasswordStrengthMeter {
         //위 항목중 하나의 조건에 충족할 경우 암호 강도 WEAK
         if (metCounts == 1) return PasswordStrength.WEAK;
 
-        if (!lengthEnough) return PasswordStrength.NORMAL;
-        if (!containsUpperCase) return PasswordStrength.NORMAL;
-        if (!containsNum) return PasswordStrength.NORMAL;
+        //위 항목중 두개의 조건에 충족할 경우 암호 강도 NORMAL
+        if (metCounts == 2) return PasswordStrength.NORMAL;
 
         return PasswordStrength.STRONG;
     }
