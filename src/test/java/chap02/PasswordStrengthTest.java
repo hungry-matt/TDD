@@ -35,7 +35,7 @@ class PasswordStrengthTest {
     @Test
     @DisplayName("숫자를 포함하지 않고 조건 충족")
     public void 숫자를_포함하지_않고_조건_충족시_암호강도_보통() {
-        assertStrength("aa@#aksaa", PasswordStrength.NORMAL);
+        assertStrength("aa@#aAsaa", PasswordStrength.NORMAL);
     }
 
     @Test
@@ -62,4 +62,15 @@ class PasswordStrengthTest {
         assertStrength("abcdefghi", PasswordStrength.WEAK);
     }
 
+    @Test
+    @DisplayName("숫자 포함 조건만 충족")
+    public void meetsOnlyNumCriteria_Then_Weak() {
+        assertStrength("1234567", PasswordStrength.WEAK);
+    }
+
+    @Test
+    @DisplayName("대문자 포함 조건만 충족")
+    public void meetsOnlyUpperCaseCriteria_Then_Weak() {
+        assertStrength("ABCDEFG", PasswordStrength.WEAK);
+    }
 }
