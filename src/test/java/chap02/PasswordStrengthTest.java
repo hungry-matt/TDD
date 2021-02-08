@@ -73,4 +73,10 @@ class PasswordStrengthTest {
     public void meetsOnlyUpperCaseCriteria_Then_Weak() {
         assertStrength("ABCDEFG", PasswordStrength.WEAK);
     }
+
+    @Test
+    @DisplayName("아무 조건도 충족하지 않는 경우")
+    public void meetsNoCriteria_Then_Weak() {
+        assertStrength("abc", PasswordStrength.WEAK);
+    }
 }
