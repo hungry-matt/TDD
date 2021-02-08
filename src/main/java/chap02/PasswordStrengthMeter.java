@@ -10,12 +10,17 @@ public class PasswordStrengthMeter {
         boolean containsUpperCase = meetsContainingUppercaseCriteria(password);
         boolean containsNum = meetsContainingNumberCriteria(password);
 
+        int metCounts = 0;
+
         //8글자 이상인 조건만 충족
-        if (lengthEnough && !containsUpperCase && !containsNum) return PasswordStrength.WEAK;
+        if (lengthEnough) metCounts++;
         //숫자인 조건만 충족
-        if (!lengthEnough && !containsUpperCase && containsNum) return PasswordStrength.WEAK;
+        if (containsNum) metCounts++;
         //대문자인 조건만 충족
-        if (!lengthEnough && containsUpperCase && !containsNum) return PasswordStrength.WEAK;
+        if (containsUpperCase) metCounts++;
+
+        //위 항목중 하나의 조건에 충족할 경우 암호 강도 WEAK
+        if (metCounts == 1) return PasswordStrength.WEAK;
 
         if (!lengthEnough) return PasswordStrength.NORMAL;
         if (!containsUpperCase) return PasswordStrength.NORMAL;

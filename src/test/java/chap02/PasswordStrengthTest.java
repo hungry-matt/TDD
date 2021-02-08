@@ -28,8 +28,8 @@ class PasswordStrengthTest {
     @Test
     @DisplayName("길이가 8글자 미만")
     public void 길이가_8글자_미만시_암호강도_보통() {
-        assertStrength("Aa1#35", PasswordStrength.NORMAL);
-        assertStrength("aaa124", PasswordStrength.NORMAL);
+        assertStrength("Aa1#351", PasswordStrength.NORMAL);
+        assertStrength("aaA#124", PasswordStrength.NORMAL);
     }
 
     @Test
