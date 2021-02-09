@@ -6,20 +6,26 @@ public class PasswordStrengthMeter {
 
         if (password == null || password.isEmpty()) return PasswordStrength.INVALID;
 
-        int metCounts = 0;
-
-        if (password.length() >= 8) metCounts++;
-        if (meetsContainingUppercaseCriteria(password)) metCounts++;
-        if (meetsContainingNumberCriteria(password)) metCounts++;
+        int meetCounts = getMeetCriteriaCounts(password);
 
         //위 항목중 하나의 조건에 충족할 경우 암호 강도 WEAK
         //또는 아무 조건도 충족하지 않는 경우 암호 강도 WEAK
-        if (metCounts <= 1) return PasswordStrength.WEAK;
+        if (meetCounts <= 1) return PasswordStrength.WEAK;
 
         //위 항목중 두개의 조건에 충족할 경우 암호 강도 NORMAL
-        if (metCounts == 2) return PasswordStrength.NORMAL;
+        if (meetCounts == 2) return PasswordStrength.NORMAL;
 
         return PasswordStrength.STRONG;
+    }
+
+    private int getMeetCriteriaCounts(String password) {
+        int meetCounts = 0;
+
+        if (password.length() >= 8) meetCounts++;
+        if (meetsContainingUppercaseCriteria(password)) meetCounts++;
+        if (meetsContainingNumberCriteria(password)) meetCounts++;
+
+        return meetCounts;
     }
 
     private boolean meetsContainingNumberCriteria(String password) {
