@@ -22,14 +22,25 @@ class ExpiryDateCalculatorTest {
     @Test
     @DisplayName("만원 납부시 한달 뒤가 만료일")
     public void pay_10000_won() {
-        assertExpiryDate(LocalDate.of(2020,3,1), 10_000, LocalDate.of(2020, 4,1));
-        assertExpiryDate(LocalDate.of(2020,5,5), 10_000, LocalDate.of(2020, 6, 5));
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2020, 3,1))
+                        .payAmount(10_000)
+                        .build()
+                , LocalDate.of(2020, 4,1));
+
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2020, 5,5))
+                        .payAmount(10_000)
+                        .build()
+                , LocalDate.of(2020, 6,5));
     }
 
     //중복 제거한 메서드
-    private void assertExpiryDate(LocalDate billingDate, int payAmount, LocalDate expectedExpiryDate) {
+    private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
         ExpiryDateCalculator calculator = new ExpiryDateCalculator();
-        LocalDate expiryDate = calculator.calculateExpiryDate(billingDate, payAmount);
+        LocalDate expiryDate = calculator.calculateExpiryDate(payData);
 
         assertEquals(expectedExpiryDate, expiryDate);
     }
