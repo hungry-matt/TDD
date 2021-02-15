@@ -37,6 +37,22 @@ class ExpiryDateCalculatorTest {
                 , LocalDate.of(2020, 6,5));
     }
 
+    @Test
+    @DisplayName("납부일과 한달 뒤 일자가 같지 않음")
+    public void days_not_equal() {
+        assertExpiryDate(
+                PayData.builder()
+                    .billingDate(LocalDate.of(2020,1,31))
+                    .payAmount(10_000)
+                    .build()
+                , LocalDate.of(2020,2,29));
+        assertExpiryDate(
+                PayData.builder()
+                    .billingDate(LocalDate.of(2020,5,31))
+                    .payAmount(10_000)
+                    .build()
+                , LocalDate.of(2020,6,30));
+    }
     //중복 제거한 메서드
     private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
         ExpiryDateCalculator calculator = new ExpiryDateCalculator();
