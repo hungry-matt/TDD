@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("서비스 납부 테스트")
 class ExpiryDateCalculatorTest {
 
     //서비스를 사용하려면 매월 만원을 선불로 납부 한다. 납부일을 기준으로 한달 뒤가 만료일이 된다.
