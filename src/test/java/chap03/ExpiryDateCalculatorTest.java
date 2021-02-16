@@ -61,8 +61,9 @@ class ExpiryDateCalculatorTest {
     }
 
     @Test
-    @DisplayName("첫 납부일의 만료일자와 납부일의 만료일의 일자가 다를때 1만원 납부시 첫 납부일 기준으로 만료일을 정함")
+    @DisplayName("월의 마지막날 납부할때 만료일의 일자와 다를 경우 첫 납부일의 일자를 기준으로 만료일의 일자를 정함")
     public void expiry_date_different() {
+        //첫 납부일의 만료일자와 납부일의 만료일의 일자가 다를때 1만원 납부시 첫 납부일 기준으로 만료일을 정함
         PayData payData = PayData.builder()
                 .firstBilingDate(LocalDate.of(2020, 1, 31))
                 .billingDate(LocalDate.of(2020, 2, 29))
@@ -79,18 +80,13 @@ class ExpiryDateCalculatorTest {
 
         assertExpiryDate(payData2, LocalDate.of(2020, 3, 30));
     }
+
     //중복 제거한 메서드
     private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
         ExpiryDateCalculator calculator = new ExpiryDateCalculator();
         LocalDate expiryDate = calculator.calculateExpiryDate(payData);
 
         assertEquals(expectedExpiryDate, expiryDate);
-    }
-
-    @Test
-    public void test() {
-        System.out.println(LocalDate.of(2020,1,30).plusMonths(1));
-        System.out.println(LocalDate.of(2020,1,31).plusMonths(1));
     }
 
 }
