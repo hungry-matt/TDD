@@ -5,7 +5,8 @@ import java.time.LocalDate;
 public class ExpiryDateCalculator {
 
     public LocalDate calculateExpiryDate(PayData payData) {
-        int addedMonths = 1;
+        //서비스 한달 이용료는 만원이므로 납부 금액을 나누어 개월수를 계산
+        int addedMonths = payData.getPayAmount() / 10_000;
 
         if (payData.getFirstBillingDate() != null) {
             LocalDate candidateExp = payData.getBillingDate().plusMonths(addedMonths);
