@@ -66,7 +66,7 @@ class ExpiryDateCalculatorTest {
     public void expiry_date_different() {
         //첫 납부일의 만료일자와 납부일의 만료일의 일자가 다를때 1만원 납부시 첫 납부일 기준으로 만료일을 정함
         PayData payData = PayData.builder()
-                .firstBilingDate(LocalDate.of(2020, 1, 31))
+                .firstBillingDate(LocalDate.of(2020, 1, 31))
                 .billingDate(LocalDate.of(2020, 2, 29))
                 .payAmount(10_000)
                 .build();
@@ -74,12 +74,32 @@ class ExpiryDateCalculatorTest {
         assertExpiryDate(payData, LocalDate.of(2020, 3, 31));
 
         PayData payData2 = PayData.builder()
-                .firstBilingDate(LocalDate.of(2020, 1, 30))
+                .firstBillingDate(LocalDate.of(2020, 1, 30))
                 .billingDate(LocalDate.of(2020, 2, 29))
                 .payAmount(10_000)
                 .build();
 
         assertExpiryDate(payData2, LocalDate.of(2020, 3, 30));
+    }
+
+    @Test
+    @DisplayName("첫 납부일과 만료일자가 다를때 2만원 이상 납부")
+    public void expiry_date_different_pay_20_000() {
+        PayData payData = PayData.builder()
+                .firstBillingDate(LocalDate.of(2020,1,31))
+                .billingDate(LocalDate.of(2020, 2, 29))
+                .payAmount(20_000)
+                .build();
+
+        assertExpiryDate(payData, LocalDate.of(2020, 4, 30));
+
+        PayData payData2 = PayData.builder()
+                .firstBillingDate(LocalDate.of(2020,3,31))
+                .billingDate(LocalDate.of(2020,4,30))
+                .payAmount(30_000)
+                .build();
+
+        assertExpiryDate(payData2, LocalDate.of(2020,7, 31));
     }
 
     @Test

@@ -44,7 +44,7 @@ public class PayData {
         private Builder() {
         }
 
-        public Builder firstBilingDate(LocalDate firstBillingDate) {
+        public Builder firstBillingDate(LocalDate firstBillingDate) {
             this.firstBillingDate = firstBillingDate;
             return this;
         }
