@@ -20,11 +20,6 @@ public class ExpiryDateCalculator {
         //후보 만료일
         LocalDate candidateExp = payData.getBillingDate().plusMonths(addedMonths);
 
-        //첫 납부일의 일자와 납부일의 만료일자와 다를 경우
-        //예) 첫 납부일 : 2020-1-31
-        //납부일 : 2020-2-29
-        //납부일 기준 만료일 : 2020-3-29
-        //첫 납부일 기준 만료일 : 2020-3-31
         if (isSameDayOfMonth(payData.getFirstBillingDate(), candidateExp)) {
             //getDayOfMonth : 월의 일자 반환
             //withDayOfMonth : 일자를 변경 하여 반환
@@ -45,6 +40,11 @@ public class ExpiryDateCalculator {
         }
     }
 
+    //첫 납부일의 일자와 납부일의 만료일자와 다를 경우
+    //예) 첫 납부일 : 2020-1-31
+    //납부일 : 2020-2-29
+    //납부일 기준 만료일 : 2020-3-29
+    //첫 납부일 기준 만료일 : 2020-3-31
     private boolean isSameDayOfMonth(LocalDate firstBillingDate, LocalDate candidate) {
         return firstBillingDate.getDayOfMonth() != candidate.getDayOfMonth();
     }
