@@ -5,9 +5,9 @@ import java.time.YearMonth;
 
 public class ExpiryDateCalculator {
 
-    private static int DEFAULT_SERVICE_MONTHS = 12; //10만 원 납부시 제공되는 월 수
-    private static int DEFAULT_SERVICE_BASE_AMOUNT = 100_000; //일정 금액 이상 납부시 제공 되는 월 수의 기준 금액
-    private static int DEFAULT_MONTHLY_PAY_AMOUNT = 10_000; //서비스의 한달 이용료
+    private static final int DEFAULT_SERVICE_MONTHS = 12; //10만 원 납부시 제공되는 월 수
+    private static final int DEFAULT_SERVICE_BASE_AMOUNT = 100_000; //일정 금액 이상 납부시 제공 되는 월 수의 기준 금액
+    private static final int DEFAULT_MONTHLY_PAY_AMOUNT = 10_000; //서비스의 한달 이용료
 
     public LocalDate calculateExpiryDate(PayData payData) {
         int addedMonths = calculateMonth(payData);
