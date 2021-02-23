@@ -110,6 +110,19 @@ class ExpiryDateCalculatorTest {
         assertExpiryDate(payData3, LocalDate.of(2020,7, 30));
     }
 
+    //TODO: 13만 원을 납부하는 상황. 13만 원 납부하는 경우 1년 3개월 뒤가 만료일이 된다.
+    @Test
+    @DisplayName("13만 원을 납부하는 상황")
+    public void pay_130000_won() {
+        assertExpiryDate(PayData.builder()
+                .billingDate(LocalDate.of(2019, 1, 28))
+                .payAmount(130_000)
+                .build(),
+                LocalDate.of(2020, 4, 28));
+    }
+
+    //TODO: 2020년 2월 29일과 같이 윤달 마지막 날에 10만 원을 납부 하는 상황
+
     @Test
     @DisplayName("2만원 이상 납부시 비례하여 만료일 계산")
     public void calculate_proportionally() {
